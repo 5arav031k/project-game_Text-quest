@@ -11,7 +11,7 @@ import java.io.IOException;
 @WebServlet(name = "InitServlet", value = "/textquest/start")
 public class InitServlet extends HttpServlet {
     private static final String INDEX_JSP = "/index.jsp";
-    private static final String QUEST_PAGE = "/quest";
+    private static final String QUEST_PAGE = "/textquest/quest";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -21,6 +21,10 @@ public class InitServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession(true);
+
+        Questions questions = new Questions();
+        session.setAttribute("questions", questions);
+        session.setAttribute("question", questions.getNextQuestion(null, null));
 
         session.setAttribute("username", req.getParameter("username"));
         resp.sendRedirect(QUEST_PAGE);
