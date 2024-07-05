@@ -1,0 +1,31 @@
+body {
+    background-color: floralwhite;
+    font-size: 20px;
+}
+
+.quest-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    width: fit-content;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 100px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 410px;
+}
+
+button {
+    padding: 12px 12px 12px 10px;
+    border: groove;
+    font-size: inherit;
+    max-width: 185px;
+}
