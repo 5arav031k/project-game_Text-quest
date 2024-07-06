@@ -28,4 +28,5 @@ button {
     border: groove;
     font-size: inherit;
     max-width: 185px;
+    cursor: pointer;
 }
