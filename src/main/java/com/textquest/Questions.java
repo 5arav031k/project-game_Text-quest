@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class Questions {
         try {
             File file = new File(JsonParser.class.getClassLoader().getResource("questions.json").getFile());
             questions = objectMapper.readValue(file, new TypeReference<>() {});
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException("Questions file does no exist", e);
         }
         return questions;

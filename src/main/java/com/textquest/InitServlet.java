@@ -25,9 +25,20 @@ public class InitServlet extends HttpServlet {
         HttpSession session = req.getSession(true);
 
         LOGGER.info("initialize questions");
-        Questions questions = new Questions();
-        session.setAttribute("questions", questions);
-        session.setAttribute("username", req.getParameter("username"));
+        try {
+            Questions questions = new Questions();
+            session.setAttribute("questions", questions);
+            session.setAttribute("username", req.getParameter("username"));
+        } catch (Exception e) {
+            if (e.getCause() instanceof IOException) {
+                LOGGER.error("Questions file does no exist",e);
+                resp.sendRedirect(PagePaths.START_PAGE);
+                return;
+            }
+            LOGGER.error("Error while initializing questions",e);
+            resp.sendRedirect(PagePaths.START_PAGE);
+            return;
+        }
 
         resp.sendRedirect(PagePaths.QUEST_PAGE);
     }
