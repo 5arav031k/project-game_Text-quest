@@ -19,7 +19,7 @@ public class QuestServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(true);
         if (session.getAttribute("username") == null) {
-            LOGGER.debug("User not logged in");
+            LOGGER.error("User not logged in");
             resp.sendRedirect(PagePaths.START_PAGE);
             return;
         }
