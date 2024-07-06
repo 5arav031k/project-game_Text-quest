@@ -10,12 +10,10 @@ import java.io.IOException;
 
 @WebServlet(name = "InitServlet", value = "/textquest/start")
 public class InitServlet extends HttpServlet {
-    private static final String INDEX_JSP = "/index.jsp";
-    private static final String QUEST_PAGE = "/textquest/quest";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher(INDEX_JSP).forward(req, resp);
+        getServletContext().getRequestDispatcher(PagePaths.START_JSP).forward(req, resp);
     }
 
     @Override
@@ -26,6 +24,6 @@ public class InitServlet extends HttpServlet {
         session.setAttribute("questions", questions);
         session.setAttribute("username", req.getParameter("username"));
 
-        resp.sendRedirect(QUEST_PAGE);
+        resp.sendRedirect(PagePaths.QUEST_PAGE);
     }
 }

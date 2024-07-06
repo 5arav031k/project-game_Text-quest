@@ -1,8 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
     <title>Text Quest</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/start.css">
 </head>
 <body>
     <h1>Welcome to Text Quest</h1>
