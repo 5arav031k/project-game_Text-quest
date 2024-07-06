@@ -1,5 +1,8 @@
 package com.textquest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +13,7 @@ import java.io.IOException;
 
 @WebServlet(name = "InitServlet", value = "/textquest/start")
 public class InitServlet extends HttpServlet {
+    private static final Logger LOGGER = LogManager.getLogger(InitServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -20,6 +24,7 @@ public class InitServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession(true);
 
+        LOGGER.info("initialize questions");
         Questions questions = new Questions();
         session.setAttribute("questions", questions);
         session.setAttribute("username", req.getParameter("username"));
