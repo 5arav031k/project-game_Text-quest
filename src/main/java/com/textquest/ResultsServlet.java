@@ -1,5 +1,8 @@
 package com.textquest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +13,7 @@ import java.io.IOException;
 
 @WebServlet(name = "ResultsServlet", value = "/textquest/results")
 public class ResultsServlet extends HttpServlet {
+    private static final Logger LOGGER = LogManager.getLogger(ResultsServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -17,11 +21,10 @@ public class ResultsServlet extends HttpServlet {
 
         String result = (String) session.getAttribute("result");
         if (session.getAttribute("username") == null || result == null) {
+            LOGGER.error("Bad session");
             resp.sendRedirect(PagePaths.START_PAGE);
             return;
         }
-        session.setAttribute("isWinner", result.contains("Перемога"));
-
         getServletContext().getRequestDispatcher(PagePaths.RESULTS_JSP).forward(req, resp);
     }
 }
