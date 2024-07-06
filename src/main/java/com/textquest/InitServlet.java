@@ -24,9 +24,8 @@ public class InitServlet extends HttpServlet {
 
         Questions questions = new Questions();
         session.setAttribute("questions", questions);
-        session.setAttribute("question", questions.getNextQuestion(null, null));
-
         session.setAttribute("username", req.getParameter("username"));
+
         resp.sendRedirect(QUEST_PAGE);
     }
 }

@@ -18,17 +18,17 @@ public class QuestServlet extends HttpServlet {
         HttpSession session = req.getSession(true);
 
         Questions questions = (Questions) session.getAttribute("questions");
-
-        String question = session.getAttribute("question").toString();
+        String question = (String) session.getAttribute("question");
         String answer = req.getParameter("answer");
-
         String nextQuestion = questions.getNextQuestion(question, answer);
-        session.setAttribute("question", nextQuestion);
+
         if (nextQuestion.contains("Перемога") || nextQuestion.contains("Поразка")) {
+            session.setAttribute("result", nextQuestion);
             resp.sendRedirect(RESULTS_PAGE);
             return;
         }
 
+        session.setAttribute("question", nextQuestion);
         session.setAttribute("first_answer", questions.getFirstAnswer(nextQuestion));
         session.setAttribute("second_answer", questions.getSecondAnswer(nextQuestion));
 
