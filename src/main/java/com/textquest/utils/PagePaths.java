@@ -1,4 +1,4 @@
-package com.textquest;
+package com.textquest.utils;
 
 public class PagePaths {
     public static final String START_JSP = "/start.jsp";
