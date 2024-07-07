@@ -1,5 +1,7 @@
-package com.textquest;
+package com.textquest.servlets;
 
+import com.textquest.utils.PagePaths;
+import com.textquest.models.Questions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
