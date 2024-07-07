@@ -1,5 +1,7 @@
-package com.textquest;
+package com.textquest.servlets;
 
+import com.textquest.utils.PagePaths;
+import com.textquest.models.Questions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,11 +29,12 @@ public class InitServlet extends HttpServlet {
         LOGGER.info("initialize questions");
         try {
             Questions questions = new Questions();
+            questions.questionsInitializer();
             session.setAttribute("questions", questions);
             session.setAttribute("username", req.getParameter("username"));
         } catch (Exception e) {
             if (e.getCause() instanceof IOException) {
-                LOGGER.error("Questions file does no exist",e);
+                LOGGER.error("Error reading questions file",e);
                 resp.sendRedirect(PagePaths.START_PAGE);
                 return;
             }
