@@ -1,4 +1,4 @@
-package com.textquest;
+package com.textquest.models;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,21 +14,23 @@ import static java.util.Objects.isNull;
 
 @Getter
 public class Questions {
-    private List<Question> questions;
+    private List<Question> questions = new ArrayList<>();
 
-    public Questions() {
-        questions = questionsInitializer();
+    public Questions(List<Question> questions) {
+        this.questions = questions;
     }
 
-    private List<Question> questionsInitializer() {
+    public Questions() {
+    }
+
+    public void questionsInitializer() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             File file = new File(JsonParser.class.getClassLoader().getResource("questions.json").getFile());
             questions = objectMapper.readValue(file, new TypeReference<>() {});
-        } catch (Exception e) {
-            throw new RuntimeException("Questions file does no exist", e);
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading questions file", e);
         }
-        return questions;
     }
 
     public String getNextQuestion(String question, String answer) {
@@ -50,7 +53,7 @@ public class Questions {
         return isNull(question) ? "" : getAnswers(question).get(1);
     }
 
-    private List<String> getAnswers(String question) {
+    List<String> getAnswers(String question) {
         List<String> answers = new ArrayList<>();
         for (Question questionLoop : questions) {
             if (questionLoop.getQuestion().equals(question)) {
