@@ -53,7 +53,7 @@ public class Questions {
         return isNull(question) ? "" : getAnswers(question).get(1);
     }
 
-    List<String> getAnswers(String question) {
+    private List<String> getAnswers(String question) {
         List<String> answers = new ArrayList<>();
         for (Question questionLoop : questions) {
             if (questionLoop.getQuestion().equals(question)) {

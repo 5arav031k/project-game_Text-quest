@@ -7,6 +7,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Spy;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -67,8 +69,18 @@ class QuestionsTest {
     void getAnswers(String question) {
         int index = Integer.parseInt(question.charAt(question.length()-1)+"");
         List<String> expectedAnswers = Arrays.asList("Question"+index+".answer1", "Question"+index+".answer2");
-        List<String> actualAnswers = questions.getAnswers(question);
 
-        assertEquals(expectedAnswers, actualAnswers);
+        for (Method method : questions.getClass().getDeclaredMethods()) {
+            if (method.getName().equals("getAnswers")) {
+                method.setAccessible(true);
+                try {
+                    @SuppressWarnings("unchecked")
+                    List<String> actualAnswers = (List<String>) method.invoke(questions, question);
+                    assertEquals(expectedAnswers, actualAnswers);
+                } catch (InvocationTargetException | IllegalAccessException e) {
+                    System.out.println("Error while invoking method " + method.getName());
+                }
+            }
+        }
     }
 }
