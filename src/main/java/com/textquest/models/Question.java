@@ -15,4 +15,7 @@ public class Question {
         this.question = question;
         this.answer = answer;
     }
+
+    public Question() {
+    }
 }
